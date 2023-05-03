@@ -1,0 +1,435 @@
+
+<style type="text/css" media="screen">
+/*
+.nodes-image {
+  margin:-100;
+}
+*/  
+@import url("//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css");
+
+.imageblock .content img, .image img {max-width: 900px;max-height: 300px;}
+.deck h3, .deck h4 {display: block !important;margin-bottom:8px;margin-top:5px;}
+.listingblock {margin:8px;}
+.pull-bottom {position:relative;bottom:1em;}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.admonitionblock.note.speaker { display:none; }
+</style>
+<style type="text/css" media="screen">
+/* #editor.maximize-editor .CodeMirror-code { font-size:24px; line-height:26px; } */
+</style>
+<article class="guide" ng-controller="AdLibDataController">
+  <carousel class="deck container-fluid">
+    <!--slide class="row-fluid">
+      <div class="col-sm-3">
+        <h3>Welcome to SPOKE Cloud</h3>
+        <p class="lead">Information</p>
+      <!dl>
+        
+        
+        <dt>author"</dt><dd>Charlotte Nelson</dd>
+        
+        
+      </dl>
+    </div>
+      <div class="col-sm-9">
+        <figure>
+          <img style="width:300px" src=""/>
+        </figure>
+      </div>
+    </slide-->
+    
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Welcome to SPOKE Cloud!</h3>
+    <br/>
+    <div>
+      
+    <div class="col-lg-8 ng-scope">
+
+      <h4>SPOKE</h4>
+       <div class="paragraph">
+        <p>The Scalable Precision Medicine Knowledge Engine (SPOKE) is a “database of databases” that integrates existing biomedical knowledge into a graph database. By intelligently bringing together information at the smallest (molecular) to largest (phenotypic) levels, the scope of SPOKE is unlike any graph currently available to consumers.</p>
+      </div>
+      <div class="paragraph">
+        <p>SPOKE is continuously growing, with new node and edge types added quarterly. Read more about how previous versions of SPOKE were assembled. <a href="https://academic.oup.com/bioinformatics/article/39/2/btad080/7033465">>>></a></p>
+      </div>
+      <div class="paragraph">
+        <p>You are currently using SPOKE in Neo4j. If this is your first time using Neo4j, you can learn more using the guides below. Click the boxed code to populate the editor above. Then press <a tooltip-placement="left" class="circled play sl sl-play"></a> in the upper right.</p>
+      </div>
+
+      <p>Navigating Neo4j Browser:</p>
+      <div class="listingblock">
+      <div class="content">
+      <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->:play intro<!--/code--></pre>
+      </div>
+      </div>
+
+      <p>Property graph model concepts:</p>
+      <div class="listingblock">
+      <div class="content">
+      <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->:play concepts<!--/code--></pre>
+      </div>
+      </div>
+
+      <p>Cypher basics - create, match, patterns:</p>
+      <div class="listingblock">
+      <div class="content">
+      <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->:play cypher<!--/code--></pre>
+      </div>
+      </div>
+
+      </div>
+
+    <div class="col-lg-4 ng-scope">
+      <img src="https://neo4jguides.s3.us-west-2.amazonaws.com/SPOKE_Cloud_logo.png" title="SPOKE Cloud" class="img-responsive">
+
+    </div>
+  </div>
+  </div>
+</slide>
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Explore SPOKE</h3>
+    <br/>
+    <div>
+
+    <div class="col-lg-2 ng-scope">
+      <h4>Database Options</h4>
+      <div class="paragraph">
+        <p>You have access to two databases in Neo4j: full SPOKE (<strong>spoke</strong>) and a human subgraph (<strong>humanspoke</strong>). By default, all queries will run on the spoke. To switch to humanspoke, add <code>USE humanspoke</code> before the first line of your query.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-5 ng-scope">
+      <h4>Node Types</h4>
+      <div class="paragraph">
+        <p>Node types are stored in the labels of a node. Each node has properties that can help you find or filter nodes. Please read the <a href="https://www.matebioservices.com/nodes">Node Documentation</a> for more information on the node types and properties. Run the code below to find the number of nodes for each type in the spoke database.</p>
+      </div>
+      <div class="listingblock">
+        <div class="content">
+          <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (node)
+RETURN
+  head(labels(node)) AS label,
+  count(*) AS count
+ORDER BY count DESC<!--/code--></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 ng-scope">
+      <h4>Edge Types</h4>
+      <div class="paragraph">
+        <p>Nodes are connected by edges. Each edge type has been rigorously discussed to ensure they represent textbook knowledge or are derived through gold-standard methodologies. Please read the <a href="https://www.matebioservices.com/edges">Edge Documentation</a> for more information on the edge types and properties. Run the code below to find the number of nodes for each type in the humanspoke database.</p>
+      </div>
+      <div class="listingblock">
+        <div class="content">
+          <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->USE humanspoke
+MATCH ()-[rel]-&gt;()
+RETURN
+  type(rel) AS rel_type,
+  count(*) AS count
+ORDER BY count DESC<!--/code--></pre>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+</slide>
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Navigating the interconnectedness of biology</h3>
+    <br/>
+    <div>
+      <div class="paragraph">
+        <p>SPOKE encompasses knowledge from numerous scientific domains, and its scale makes it challenging to know where to start. To get acquainted with SPOKE’s structure, we recommend playing with the MetaGraph. Think of the MetaGraph as your SPOKE map. Begin by finding a starting and ending node type of interest. Say you want to understand how a set of biomarkers are connected to a specific disease. In this case, your starting node type would be Protein, and the ending node type would be Disease. Now you can use the MetaGraph to find all the possible edges and MetaPaths between these two node types.</p>
+      </div>
+
+      <div>
+        <h4>MetaGraph</h4>
+        <div class="col-lg-4 ng-scope">
+          <img src="https://static.wixstatic.com/media/df3c1e_70b093b55f3f49d596aa9dee90dc2f80~mv2.png/v1/crop/x_933,y_417,w_3200,h_2750/fill/w_512,h_440,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/spoke_subway_map-01.png" title="SPOKE MetaGraph V2" class="img-responsive">
+        </div>
+
+      <div class="col-lg-8 ng-scope">
+        <p>View current SPOKE MetaGraph:</p>
+        <div class="listingblock">
+        <div class="content">
+        <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->call apoc.meta.graph<!--/code--></pre>
+        </div>
+        </div>
+
+        <p>Property graph model concepts:</p>
+        <div class="listingblock">
+        <div class="content">
+        <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH ()-[rel]-&gt;()
+WITH type(rel) AS rel_type, collect(rel) AS rels
+WITH rels[toInteger(rand() * size(rels))] AS rel
+RETURN startNode(rel), rel, endNode(rel)<!--/code--></pre>
+        </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</slide>
+
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Get started with a real use case</h3>
+    <br/>
+
+    <div>
+      
+    <div class="col-lg-6 ng-scope">
+      <div class="paragraph">
+        <p>Say you are a researcher studying drugs to treat Alzheimer’s Disease (AD). You just read a paper that used Electronic Health Records (EHRs) to predict AD onset <a href="https://www.medrxiv.org/content/10.1101/2023.03.14.23287224v1">(Tang, A. et al.)</a></p>, and hyperlipidemia was one of the top predictors. As a result, you want to dig into the biology of drugs that have gone through Phase 4 clinical trials for Alzheimer’s disease and see if hyperlipidemia shares any biological processes.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-6 ng-scope">
+      <img src="https://neo4jguides.s3.us-west-2.amazonaws.com/Tang_A_F4_AB.jpg" title="SPOKE Cloud" class="img-responsive">
+    </div>
+
+  </div>
+
+  <br/>
+
+  <p>The first step is to find the node for Alzheimer’s disease. If you are unfamiliar with Disease Ontology, the following query will return any Disease node with “alzheimer" in the name.</p>
+  <div class="listingblock">
+  <div class="content">
+  <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (node:Disease) WHERE node.name=~'(?i).*alzheimer.*' 
+RETURN DISTINCT node.identifier, node.name<!--/code--></pre>
+  </div>
+  </div>
+
+  <p>Once you know the identifier of the node, you can retrieve it with:</p>
+  <div class="listingblock">
+  <div class="content">
+  <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (node:Disease {identifier:"DOID:10652"}) RETURN node<!--/code--></pre>
+  </div>
+  </div>
+
+  <p>Next, you can find proteins that drugs that have gone through phase 4 clinical trials:</p>
+  <div class="listingblock">
+  <div class="content">
+  <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH drug_bio=(:Disease {identifier:"DOID:10652"})-[rel:TREATS_CtD]-(:Compound)-[:BINDS_CbP]-(:Protein)
+WHERE rel.phase >= 4 
+RETURN drug_bio LIMIT 5<!--/code--></pre>
+  </div>
+  </div>
+
+  <p>You can then extend that path to uncover impacted biological processes:</p>
+  <div class="listingblock">
+  <div class="content">
+  <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH drug_bio=(:Disease {identifier:"DOID:10652"})-[rel:TREATS_CtD]-(:Compound)-[:BINDS_CbP]-(:Protein)-[:ENCODES_GeP]-(:Gene)-[]-(n2:BiologicalProcess)
+WHERE rel.phase >= 4 
+RETURN drug_bio LIMIT 5<!--/code--></pre>
+  </div>
+  </div>
+
+  <p>Now that you have Biological Process nodes, you can see if any paths connect them to both AD and hyperlipidemia.</p>
+  <div class="listingblock">
+  <div class="content">
+  <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH drug_bio=(:Disease {identifier:"DOID:10652"})-[rel:TREATS_CtD]-(:Compound)-[:BINDS_CbP]-(:Protein)-[:ENCODES_GeP]-(:Gene)-[]-(n2:BiologicalProcess)
+WHERE rel.phase >= 4 
+MATCH path=(n0:Disease {identifier:"DOID:1168"})-[:ASSOCIATES_DaG]-(n1:Gene)-[]-(n2)-[]-(n3:Gene)-[:ASSOCIATES_DaG]-(n4:Disease {identifier:"DOID:10652"})
+RETURN COUNT(DISTINCT path)<!--/code--></pre>
+  </div>
+  </div>
+
+  <p>Find ways to navigate and filter the thousands of potential paths on the next page.</p>
+
+
+  </div>
+</slide>
+
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Filtering Paths</h3>
+    <br/>
+    <div>
+
+   <h4>Path Count</h4>
+   <div class="paragraph">
+    <p>One method for evaluating the paths is by counting the number of ways to get to each biological process node. The following query returns a list of the top 100 biological processes ordered by path count.</p>
+   </div>
+    <div class="listingblock">
+    <div class="content">
+    <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding"><!--code-->MATCH (:Disease {identifier:"DOID:10652"})-[rel:TREATS_CtD]-(:Compound)-[:BINDS_CbP]-(:Protein)-[:ENCODES_GeP]-(:Gene)-[]-(n2:BiologicalProcess) WHERE rel.phase > 3
+MATCH path=(n0:Disease {identifier:"DOID:1168"})-[:ASSOCIATES_DaG]-(n1:Gene)-[]-(n2)-[]-(n3:Gene)-[:ASSOCIATES_DaG]-(n4:Disease {identifier:"DOID:10652"})
+WITH count(path) AS PC, n2
+RETURN DISTINCT n2.name, n2.identifier, PC
+ORDER BY PC DESC LIMIT 100<!--/code--></pre>
+    </div>
+    </div>
+
+   <h4>Degree Weighted Path Count</h4>
+   <div class="paragraph">
+    <p>When you use path count, the top results might contain hub nodes. These hub nodes have a lot of connections, you might see the same results when you change diseases. To see if this is the case switching the hyperlipidemia identifier (DOID:1168) for Multiple Sclerosis (DOID:2377). Use Degree Weighted Path Count (DWPC) to decrease the influence of hub nodes.
+DWPC also scores the connectivity between the diseases, but takes the number of forward and reverse degrees into consideration.</p>
+   </div>
+    <div class="listingblock">
+    <div class="content">
+    <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding"><!--code-->MATCH (:Disease {identifier:"DOID:10652"})-[rel:TREATS_CtD]-(:Compound)-[:BINDS_CbP]-(:Protein)-[:ENCODES_GeP]-(:Gene)-[]-(n2:BiologicalProcess) WHERE rel.phase > 3
+MATCH path=(n0:Disease {identifier:"DOID:1168"})-[:ASSOCIATES_DaG]-(n1:Gene)-[]-(n2)-[]-(n3:Gene)-[:ASSOCIATES_DaG]-(n4:Disease {identifier:"DOID:10652"})
+WITH [
+size((n0)-[:ASSOCIATES_DaG]-()),
+size(()-[:ASSOCIATES_DaG]-(n1)),
+size((n1)-[:PARTICIPATES_GpBP]-()),
+size(()-[:PARTICIPATES_GpBP]-(n2)),
+size((n2)-[:PARTICIPATES_GpBP]-()),
+size(()-[:PARTICIPATES_GpBP]-(n3)),
+size((n3)-[:ASSOCIATES_DaG]-()),
+size(()-[:ASSOCIATES_DaG]-(n4))
+] AS degrees, path, n2 AS target
+WITH count(path) AS PC,
+sum(reduce(pdp = 1.0, d in degrees| pdp * d ^ -0.7)) AS DWPC, target
+RETURN DISTINCT target.identifier, target.name, DWPC, PC
+ORDER BY DWPC DESC LIMIT 100<!--/code--></pre>
+    </div>
+    </div>
+
+   <h4>Visualize top DWPC paths</h4>
+   <div class="paragraph">
+    <p>One method for evaluating the paths is by counting the number of ways to get to each biological process node. The following query returns a list of the top 100 biological processes ordered by path count.</p>
+   </div>
+    <div class="listingblock">
+    <div class="content">
+    <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding"><!--code-->MATCH path=(n0:Disease {identifier:"DOID:1168"})-[:ASSOCIATES_DaG]-(n1:Gene)-[]-(n2:BiologicalProcess)-[]-(n3:Gene)-[:ASSOCIATES_DaG]-(n4:Disease {identifier:"DOID:10652"})
+WHERE n2.identifier IN ["GO:0042982", "GO:0010876"]
+RETURN path<!--/code--></pre>
+    </div>
+    </div>
+
+  </div>
+  </div>
+</slide>
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Neo4j Graph Data Science (GDS)</h3>
+    <br/>
+    <div>
+
+   <h4>Projecting Graphs</h4>
+   <div class="paragraph">
+    <p>To use many of the Neo4j GDS algorithms, you must create a projected graph.</p>
+   </div>
+    <div class="listingblock">
+    <div class="content">
+    <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding"><!--code-->CALL gds.graph.project(
+'proj_graph',
+['Disease', 'Compound','BiologicalProcess', 'Gene'],
+['TREATS_CtD', 'EXPRESSEDIN_GeiD', 'PARTICIPATES_GpBP', 'ASSOCIATES_DaG']
+) YIELD
+graphName AS graph, nodeCount AS nodes, relationshipCount AS rels<!--/code--></pre>
+    </div>
+    </div>
+
+   <h4>Random Walk</h4>
+   <div class="paragraph">
+    <p>Use your new projected graph to run a random walk algorithm with Alzheimer’s Disease and Donepezil as the starting nodes.</p>
+   </div>
+    <div class="listingblock">
+    <div class="content">
+    <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding"><!--code-->MATCH (d:Disease {identifier:'DOID:10652'}) 
+MATCH (c:Compound {chembl_id:'CHEMBL1678'})
+WITH COLLECT([d, c]) as sourceNodesList, c, d
+UNWIND(sourceNodesList) as sourceNodes
+CALL gds.randomWalk.stream(
+'proj_graph',
+{
+sourceNodes: sourceNodes,
+walkLength: 5,
+walksPerNode: 20,
+concurrency: 1,
+returnFactor: 0.33
+}
+)
+YIELD nodeIds, path
+RETURN path LIMIT 100<!--/code--></pre>
+    </div>
+    </div>
+
+   <h4>Connect result nodes</h4>
+   <div class="paragraph">
+    <p>Click the settings icon <i class="fa-regular fa-gear"></i> in the lower left corner and scroll to the bottom of the tab. You should see <i class="fa-solid fa-square-check"></i> a check box <a tooltip-placement="left" class="fa-solid fa-square-check"></a>  for <i>Connect result nodes</i>. If this is selected, then neo4j will automatically display all the edges between the result nodes. Otherwise, it will only return the edges defined in the query. Try checking/unchecking the box and then run the random walk algorithm again.</p>
+   </div>
+
+  </div>
+  </div>
+</slide>
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>Plug SPOKE into your code!</h3>
+    <br/>
+    <div>
+
+   <h4>Example Code</h4>
+   <div class="paragraph">
+    <p>You can query SPOKE directly from Python using the <a href="https://pypi.org/project/neo4j-driver/">Neo4j driver</a>. The code below will return the same path count results from earlier in the guide. Make sure to replace the username and password.</p>
+   </div>
+    <div class="listingblock">
+    <div class="content">
+    <pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding"><!--code-->from neo4j import GraphDatabase, basic_auth
+import pandas as pd
+
+def get_df_from_neo4j_query(session, query, columns):
+  result = session.run(query)
+  df = []
+  for record in result:
+    df.append(record.values())
+  return pd.DataFrame(df, columns=columns)
+
+query = """
+MATCH (:Disease {identifier:"DOID:10652"})-[rel:TREATS_CtD]-(:Compound)-[:BINDS_CbP]-(:Protein)-[:ENCODES_GeP]-(:Gene)-[]-(n2:BiologicalProcess) 
+WHERE rel.phase > 3
+MATCH path=(n0:Disease {identifier:"DOID:1168"})-[:ASSOCIATES_DaG]-(n1:Gene)-[]-(n2)-[]-(n3:Gene)-[:ASSOCIATES_DaG]-(n4:Disease {identifier:"DOID:10652"})
+WITH count(path) AS PC, n2
+RETURN DISTINCT n2.name, n2.identifier, PC
+ORDER BY PC DESC LIMIT 100
+"""
+
+driver = GraphDatabase.driver('bolt://matebioservices-spoke.com:7687/', 
+  auth=basic_auth('username', 'password'), encrypted=False)
+session = driver.session()
+df = get_df_from_neo4j_query(session, query, columns=['identifier'])
+session.close()<!--/code--></pre>
+    </div>
+    </div>
+
+   <h4>Node Embeddings</h4>
+   <div class="paragraph">
+    <p>Node embeddings can be a powerful way to integrate SPOKE into your machine-learning pipelines. Learn more about Neo4j’s current algorithms <a href="https://neo4j.com/docs/graph-data-science/current/machine-learning/node-embeddings/">here</a>.</p>
+   </div>
+
+  </div>
+  </div>
+</slide>
+
+
+  </carousel>
+</article>
